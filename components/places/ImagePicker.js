@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Button, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet } from "react-native";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { GlobalStyles } from "../../constants/colors";
 import OutlinedButton from "../ui/OutlinedButton";
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "200%",
+    height: "100%",
   },
 });

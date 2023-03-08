@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   getCurrentPositionAsync,
   PermissionStatus,
@@ -7,13 +7,30 @@ import {
 import { View, StyleSheet, Alert, Image, Text } from "react-native";
 import OutlinedButton from "../ui/OutlinedButton";
 import { GlobalStyles } from "../../constants/colors";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 import { getMapPreview } from "../../util/location";
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const route = useRoute();
   const [permission, requestPermission] = useForegroundPermissions();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [isFocused, route]);
+
   //verify if user has permission, if permission is undetermined, ask for permissions
   const verifyPermissions = async () => {
     if (permission.status === PermissionStatus.UNDETERMINED) {
@@ -52,7 +69,9 @@ const LocationPicker = () => {
         {pickedLocation ? (
           <Image
             style={styles.mapPreviewImage}
-            source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }}
+            source={{
+              uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
+            }}
           />
         ) : (
           <Text>No location picked yet</Text>

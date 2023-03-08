@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import { StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import IconButton from "../components/ui/IconButton";
 
-const Map = () => {
+const Map = ({ navigation }) => {
   const [selectedLocation, setSelectedLocation] = useState();
   const region = {
     latitude: 37.78,
@@ -15,6 +16,33 @@ const Map = () => {
     const lng = event.nativeEvent.coordinate.longitude;
     setSelectedLocation({ lat, lng });
   };
+  const savePickedLocationHandler = () => {
+    if (!selectedLocation) {
+      Alert.alert(
+        "No location picked",
+        "You have to pick a location by tapping in the map"
+      );
+    } else {
+      navigation.navigate("AddPlace", {
+        pickedLat: selectedLocation.lat,
+        pickedLng: selectedLocation.lng,
+      });
+    }
+  };
+  //add header button
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: ({ tintColor }) => (
+        <IconButton
+          name="save"
+          size={24}
+          color={tintColor}
+          onPress={savePickedLocationHandler}
+        />
+      ),
+    });
+  }, [navigation, savePickedLocationHandler]);
+
   return (
     <MapView
       style={styles.map}
