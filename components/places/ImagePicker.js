@@ -4,8 +4,9 @@ import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { GlobalStyles } from "../../constants/colors";
 import OutlinedButton from "../ui/OutlinedButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ onImageTaken }) => {
   const [image, setImage] = useState(null);
+
   const pickImageHandler = async () => {
     // No permissions request is necessary for launching the image library
     let result = await launchImageLibraryAsync({
@@ -17,6 +18,7 @@ const ImagePicker = () => {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
+    onImageTaken(result.assets[0].uri);
   };
   return (
     <View>

@@ -12,15 +12,16 @@ import {
   useRoute,
   useIsFocused,
 } from "@react-navigation/native";
-import { getMapPreview } from "../../util/location";
+import { getAddress, getMapPreview } from "../../util/location";
 
-const LocationPicker = () => {
+const LocationPicker = ({ onLocationPicked }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const route = useRoute();
   const [permission, requestPermission] = useForegroundPermissions();
 
+  //update location picked
   useEffect(() => {
     if (isFocused && route.params) {
       const mapPickedLocation = {
@@ -30,6 +31,19 @@ const LocationPicker = () => {
       setPickedLocation(mapPickedLocation);
     }
   }, [isFocused, route]);
+
+  useEffect(() => {
+    const handleLocation = async () => {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        onLocationPicked({ ...pickedLocation, address });
+      }
+    };
+    handleLocation();
+  }, [pickedLocation, onLocationPicked]);
 
   //verify if user has permission, if permission is undetermined, ask for permissions
   const verifyPermissions = async () => {
