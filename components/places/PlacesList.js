@@ -4,6 +4,7 @@ import { GlobalStyles } from "../../constants/colors";
 import PlaceItem from "./PlaceItem";
 
 const PlacesList = ({ places }) => {
+
   if (!places || places.length === 0) {
     return (
       <View style={styles.fallbackContainer}>
@@ -13,6 +14,7 @@ const PlacesList = ({ places }) => {
   }
   return (
     <FlatList
+      style={styles.list}
       data={places}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PlaceItem place={item} />}
@@ -23,6 +25,9 @@ const PlacesList = ({ places }) => {
 export default PlacesList;
 
 const styles = StyleSheet.create({
+  list: {
+    padding: 24
+  },
   fallbackContainer: {
     justifyContent: "center",
     alignItems: "center",

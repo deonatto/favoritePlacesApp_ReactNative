@@ -20,8 +20,6 @@ const PlaceForm = ({ onCreatePlace }) => {
   };
   //use callback hook to avoid unnecessary re-creations
   const locationPickedHandler = useCallback((location) => {
-    console.log("inside location");
-    console.log(location);
     setLocation(location);
   }, []);
   const savePlaceHandler = () => {
