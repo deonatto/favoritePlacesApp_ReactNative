@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/ui/IconButton";
@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
-  
+
   useEffect(() => {
     init()
       .then(() => {
