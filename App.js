@@ -9,6 +9,7 @@ import { GlobalStyles } from "./constants/colors";
 import Map from "./screens/Map";
 import { init } from "./util/database";
 import * as SplashScreen from "expo-splash-screen";
+import PlaceDetails from "./screens/PlaceDetails";
 
 const Stack = createNativeStackNavigator();
 // Keep the splash screen visible while we fetch resources
@@ -69,6 +70,11 @@ export default function App() {
             name="Map"
             component={Map}
             options={{ title: "Map", headerTitleAlign: "center" }}
+          />
+          <Stack.Screen
+            name="PlaceDetails"
+            component={PlaceDetails}
+            options={{ title: "Loading place...", headerTitleAlign: "center" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

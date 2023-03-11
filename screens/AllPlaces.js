@@ -8,8 +8,10 @@ const AllPlaces = () => {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
     const loadPlaces = async () => {
-      const places = await fetchPlaces();
-      setPlaces(places);
+      try {
+        const places = await fetchPlaces();
+        setPlaces(places);
+      } catch (err) {}
     };
     if (isFocused) {
       loadPlaces();

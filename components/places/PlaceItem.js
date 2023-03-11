@@ -4,7 +4,10 @@ import { GlobalStyles } from "../../constants/colors";
 
 const PlaceItem = ({ place, onSelect }) => {
   return (
-    <Pressable style={({pressed})=> [styles.itemContainer, pressed && styles.pressed]} onPress={onSelect}>
+    <Pressable
+      style={({ pressed }) => [styles.itemContainer, pressed && styles.pressed]}
+      onPress={() => onSelect(place.id)}
+    >
       <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{place.title}</Text>
@@ -30,25 +33,25 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   pressed: {
-    opacity: 0.9
+    opacity: 0.9,
   },
   image: {
     flex: 1,
     borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
-    height: 100
+    height: 100,
   },
   infoContainer: {
     flex: 2,
-    padding: 12
+    padding: 12,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
-    color: GlobalStyles.colors.gray700
+    color: GlobalStyles.colors.gray700,
   },
   address: {
     fontSize: 12,
-    color: GlobalStyles.colors.gray700
+    color: GlobalStyles.colors.gray700,
   },
 });

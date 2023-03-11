@@ -5,8 +5,16 @@ import { GlobalStyles } from "../../constants/colors";
 
 const OutlinedButton = ({ children, onPress, icon }) => {
   return (
-    <Pressable style={({pressed}) => [styles.button, pressed && styles.pressed]} onPress={onPress}>
-      <Ionicons style={styles.icon} name={icon} size={18} color={GlobalStyles.colors.primary500} />
+    <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      onPress={onPress}
+    >
+      <Ionicons
+        style={styles.icon}
+        name={icon}
+        size={18}
+        color={GlobalStyles.colors.primary500}
+      />
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );
@@ -19,6 +27,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     margin: 4,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
